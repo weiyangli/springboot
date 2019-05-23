@@ -2,6 +2,8 @@ package com.example.springBoot.controller;
 
 import com.example.springBoot.bean.Target;
 import com.example.springBoot.service.TargetImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +17,16 @@ import java.util.List;
 
 @Controller
 public class DemoController {
+    private static Logger logger = LoggerFactory.getLogger(DemoController.class.getName());
     @Autowired
     private TargetImpl targetImpl;
 
     @RequestMapping("/")
-    ModelAndView  index(){
+    ModelAndView  index() {
+        logger.info("进入index");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("hello.html");
-        modelAndView.addObject("key", "是呀");
+        modelAndView.addObject("key", "是11111呀");
         return modelAndView;
     }
 

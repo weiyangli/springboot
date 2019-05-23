@@ -13,6 +13,9 @@ public class TargetImpl implements TargetService{
     @Autowired
     private TargetDao targetDao;
 
+    @Autowired
+    private RedisService redisService;
+
 
     @Override
     public void save(Target target) {
@@ -26,7 +29,13 @@ public class TargetImpl implements TargetService{
 
     @Override
     public List<Target> findAll() {
-        return targetDao.findAll();
+        List<Target> targets = targetDao.findAll();
+        long time = redisService.getTimeOut("test:1111111");
+        // redisService.publishMessage();
+        if (time == -2) {
+            redisService.set("test:1111111", targets, 1);
+        }
+        return targets;
     }
 
     @Override

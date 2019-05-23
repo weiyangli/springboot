@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+    <link rel="stylesheet/less" type="text/css" href="./css/vue.less" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/less.min.js"></script>
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--<div class="box">
+            <i-button type="success" class="button-box" @click="d">Success</i-button>
+            <i-table :columns="columns" :data="data"></i-table>
+        </div>-->
+        <div class="box-2">
+            <div class="position-test">
+                <span>您报好舒服归属感</span>
+            </div>
+        </div>
+    </div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: '我疯了',
+            data: [],
+            columns: [
+                {
+                    title: 'id',
+                    key: 'tid'
+                },
+                {
+                    title: '名称',
+                    key: 'tname'
+                },
+            ],
+        },
+        mounted: function () {
+            this.$nextTick(function () {
+                // Code that will run only after the
+                // entire view has been rendered
+            })
+        },
+        created() {
+            this.getData();
+        },
+        methods: {
+            getData: function () {
+                var self = this;
+                $.ajax({
+                    url        : '/find/data',
+                    async      : false,
+                    type       : 'GET',
+                    dataType   : 'json', // 服务器的响应使用 JSON 格式
+                    contentType    : 'application/x-www-form-urlencoded;charset=UTF-8',
+                    // 服务器抛异常时，有时 Windows 的 Tomcat 环境下竟然取不到 header X-Requested-With, Mac 下没问题，
+                    // 正常请求时都是好的，手动添加 X-Requested-With 为 XMLHttpRequest 后所有环境下正常和异常时都能取到了
+                    headers: {'X-Requested-With': 'XMLHttpRequest'}
+                })
+                    .done(function(data, textStatus, jqXHR) {
+                        if (textStatus == 'success') {
+                            self.data = data;
+                        }
+                    })
+            },
+            d: function () {
+                // 跳转到新页面
+                window.location.href = "/";
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

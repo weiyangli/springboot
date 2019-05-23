@@ -1,11 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<link rel="stylesheet" type="text/css" href="/lib/easyui/themes/default/easyui.css"/>
+<script th:src="@{/lib/jquery.min.js}" ></script>
+<script th:src="@{/lib/less.min.js}" ></script>
+<script type="text/javascript" src="/lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // 执行 AJAX 请求
+        $.ajax({
+            url        : '/find/data',
+            async      : false,
+            type       : 'GET',
+            dataType   : 'json', // 服务器的响应使用 JSON 格式
+            contentType    : 'application/x-www-form-urlencoded;charset=UTF-8',
+            // 服务器抛异常时，有时 Windows 的 Tomcat 环境下竟然取不到 header X-Requested-With, Mac 下没问题，
+            // 正常请求时都是好的，手动添加 X-Requested-With 为 XMLHttpRequest 后所有环境下正常和异常时都能取到了
+            headers: {'X-Requested-With': 'XMLHttpRequest'}
+        })
+            .done(function(data, textStatus, jqXHR) {
+                var table=$("<table border=\"1\">");
+                table.appendTo($("#win"));
+                for(var i=0;i<data.length;i++)
+                {
+                    var tr=$("<tr>id</tr>");
+                    tr.appendTo(table);
+                    var td=$("<td>"+data[i].tid+"</td>");
+                    td.appendTo(tr);
+                    tr.appendTo(table);
+                    var tr2=$("<tr>名稱</tr>");
+                    var td2=$("<td>"+data[i].tname+"</td>");
+                    td2.appendTo(tr2);
+                    tr2.appendTo(table);
+                }
+                tr.appendTo(table);
+                $("#win").append("</table>");
+            })
+        $('#win').window('close');
+    });
+    function letme () {
+        $('#win').window('open');
+        alert('提交');
+    }
+</script>
 <body>
-111211111你好111
+    <button onclick="letme()">点击交</button>
     <span  th:text="${key}"></span>
+    <div id="win" class="easyui-window" title="My Window" collapsible="false" style="width:600px;height:400px"
+         data-options="iconCls:'icon-save',modal:true">
+    </div>
 </body>
 </html>
