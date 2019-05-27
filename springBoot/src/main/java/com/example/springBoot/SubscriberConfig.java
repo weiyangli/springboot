@@ -24,7 +24,8 @@ public class SubscriberConfig {
      */
     @Bean
     public MessageListenerAdapter getMessageListenerAdapter(RedisMessage redisMessage) {
-        return new MessageListenerAdapter(redisMessage); //当没有继承MessageListener时需要写方法名字
+        //当没有继承MessageListener时需要写方法名字
+        return new MessageListenerAdapter(redisMessage);
     }
 
     /**
