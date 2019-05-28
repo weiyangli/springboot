@@ -3,7 +3,7 @@ process.env.VUE_APP_VERSION = new Date().getTime();
 module.exports = {
     devServer: {
         port: 8888,
-        proxy: 'http://192.168.10.158:8080'
+        proxy: 'http://192.168.10.158:9999'
     },
 
     // 多页的页面

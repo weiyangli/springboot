@@ -101,5 +101,8 @@ const Urls = {
     API_COURSEWARE_CATALOG_MEDIA : '/api/findinfo/coursewares/{catalogId}', // 获取媒体所有讲义/知识点/弹题信息
 
     // 通过媒体编码及服务器编码获取媒体时长及认证信息
-    API_MEDIA_PLAYAUTH : '/api/media/durationAndPlayAuth'
+    API_MEDIA_PLAYAUTH : '/api/media/durationAndPlayAuth',
+
+    API_CHECKING : '/api/checking',                   // 考勤
+    API_CHECKING_IMPORT : '/api/checking/import'     // 考勤导入
 };

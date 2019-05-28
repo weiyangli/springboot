@@ -15,5 +15,10 @@ export default new Router({
             name: 'login',
             component: () => import('./login.vue'),
         },
+        {
+            path: '/checking',
+            name: 'checking',
+            component: () => import('./checking-in.vue'),
+        },
     ],
 });

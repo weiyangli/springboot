@@ -41,7 +41,7 @@ export default {
     },
     methods: {
         login() {
-            alert(1);
+            this.$router.push({ name: 'checking' });
         }
     }
 };
