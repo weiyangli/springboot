@@ -18,6 +18,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Accessors(chain = true)
+
 public class BaseService {
 
     @Value("${tempUploadDirectory}")
@@ -26,10 +27,9 @@ public class BaseService {
     /**
      * 根据参数导出 Excel 文件
      *
-     * @param book Workbook 对象
+     * @param book     Workbook 对象
      * @param fileName 文件名
-     * @param userId 用户 ID
-     *
+     * @param userId   用户 ID
      * @return String
      */
     public String exportExcel(Workbook book, String fileName, Long userId) throws IOException {
@@ -41,27 +41,23 @@ public class BaseService {
         // 1.2、定义文件类型
         // 1.3、定义临时文件名
         // 1.4、定义临时访问路径
-
         // [1.1]
         // [1.2]
         String url = "";
-        String       extension    = "xls";
+        String extension = "xls";
         // [1.3]
-        String         fileId       = UUID.randomUUID().toString().substring(0, 33).replace("-", "");
-        String       tempFilename = fileId + (StringUtils.isBlank(extension) ? "" : "." + extension); // 临时文件名
+        String fileId = UUID.randomUUID().toString().substring(0, 33).replace("-", "");
+        String tempFilename = fileId + (StringUtils.isBlank(extension) ? "" : "." + extension); // 临时文件名
         // [1.4]
-        String       tempUrl      = Urls.URL_TEMPORARY_FILE_PREFIX + tempFilename;
-
-
+        String tempUrl = Urls.URL_TEMPORARY_FILE_PREFIX + tempFilename;
         // [2]
-
-        if(book == null){
+        if (book == null) {
             return url;
         }
-        if(StringUtils.isBlank(fileName)){
+        if (StringUtils.isBlank(fileName)) {
             return url;
         }
-        if(userId == null){
+        if (userId == null) {
             return url;
         }
         // [3]

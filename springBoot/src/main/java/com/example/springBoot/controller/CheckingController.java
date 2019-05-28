@@ -3,6 +3,7 @@ package com.example.springBoot.controller;
 import com.example.springBoot.bean.Checking;
 import com.example.springBoot.bean.Result;
 import com.example.springBoot.service.CheckingService;
+import com.example.springBoot.utils.PageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,21 @@ public class CheckingController {
     public Result<List<Checking>> findChecking() {
         return Result.ok(checkingService.findChecking());
     }
+
+    /**
+     * 考勤查询
+     *
+     * @return
+     */
+    @GetMapping("/api/page/checking")
+    @ResponseBody
+    public Result<List<Checking>> findCheckingToPage(@RequestParam(defaultValue = "1", required = false) int currentPage,
+                                                     @RequestParam(defaultValue = "2", required = false) int pageSize) {
+        // 计算偏移量
+        int offset = PageUtils.offset(currentPage, pageSize);
+        return Result.ok(checkingService.findCheckingToPage(offset, pageSize));
+    }
+
 
     /**
      * 添加考勤

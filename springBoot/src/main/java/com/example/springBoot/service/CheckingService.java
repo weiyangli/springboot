@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,7 +57,7 @@ public class CheckingService {
      * @return
      */
     public List<Checking> findChecking() {
-        List<Checking> result = checkingMapper.findAll();
+        List<Checking> result = checkingMapper.findAll(Sort.by("createdAt").descending());
         return result;
     }
 
@@ -190,5 +191,9 @@ public class CheckingService {
         if (w < 0)
             w = 0;
         return weekDays[w];
+    }
+
+    public Result<List<Checking>> findCheckingToPage(int offset, int pageSize) {
+        return Result.ok(checkingMapper.findCheckingToPage(offset, pageSize));
     }
 }
